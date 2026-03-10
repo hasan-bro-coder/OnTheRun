@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://filuhcwd6hw"]
+
+[ext_resource type="PackedScene" uid="uid://jldj7qd6pddi" path="res://scenes/spawner/block_spawner.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://ccj8wortpfqa0" path="res://scenes/player.tscn" id="2_0wfyh"]
+[ext_resource type="Script" uid="uid://63w10dh8ja7n" path="res://scripts/debug.gd" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://me8k07pnbarl" path="res://scenes/blockes/block3.tscn" id="4_tefeu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sgp6g"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_bottom_color = Color(0, 0.019607844, 0.1254902, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_o5qli"]
+sky_material = SubResource("ProceduralSkyMaterial_sgp6g")
+
+[sub_resource type="Environment" id="Environment_0wfyh"]
+background_mode = 2
+sky = SubResource("Sky_o5qli")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="main" type="Node3D" unique_id=1332416776]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1234698800]
+environment = SubResource("Environment_0wfyh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1134565705]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="BlockSpawner" parent="." unique_id=471211485 instance=ExtResource("1_o5qli")]
+block_types = Array[PackedScene]([ExtResource("4_tefeu")])
+speed = 60
+
+[node name="Player" parent="." unique_id=2033217871 instance=ExtResource("2_0wfyh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.6471095, 0)
+
+[node name="Debug" type="Node" parent="." unique_id=304368852]
+script = ExtResource("3_sugp2")
+
+[node name="Fps" type="Label" parent="Debug" unique_id=1388547641]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://ccj8wortpfqa0"]
+
+[ext_resource type="Script" uid="uid://5mgwtrlotkfy" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://cn6jwyc5b6wao" path="res://scenes/component/health.tscn" id="2_g2els"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_u8vuu"]
+size = Vector3(1, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3vyb7"]
+size = Vector3(1, 2, 3)
+
+[node name="Player" type="CharacterBody3D" unique_id=780114426 groups=["player"]]
+script = ExtResource("1_3vyb7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=448667704]
+mesh = SubResource("BoxMesh_u8vuu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=849748436]
+shape = SubResource("BoxShape3D_3vyb7")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1073871342]
+transform = Transform3D(-4.371139e-08, 0.5, -0.8660254, 0, 0.8660254, 0.5, 1, 2.1855694e-08, -3.7855173e-08, -15, 13.17, 0)
+top_level = true
+projection = 1
+size = 30.0
+
+[node name="Health" parent="." unique_id=116879330 instance=ExtResource("2_g2els")]
+
+[connection signal="died" from="Health" to="." method="_on_health_died"]

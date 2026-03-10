@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://me8k07pnbarl"]
+
+[ext_resource type="Script" uid="uid://bq3fal0ji87w2" path="res://scripts/block.gd" id="1_3o2wr"]
+[ext_resource type="PackedScene" uid="uid://bna2oxkrpnpy2" path="res://assets/blocks/road.blend" id="2_5acwj"]
+[ext_resource type="PackedScene" uid="uid://d14fewnuma2bb" path="res://scenes/spawner/obstacle_spawner.tscn" id="3_5gits"]
+[ext_resource type="PackedScene" uid="uid://cicmwv6tujpj1" path="res://scenes/obstacles/ramp.tscn" id="5_mc6q4"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_kfkse"]
+data = PackedVector3Array(-9, 0.5, 45, 9, 0.5, 45, -9, -0.5, 45, 9, 0.5, 45, 9, -0.5, 45, -9, -0.5, 45, 9, 0.5, -45, -9, 0.5, -45, 9, -0.5, -45, -9, 0.5, -45, -9, -0.5, -45, 9, -0.5, -45, 9, 0.5, 45, 9, 0.5, -45, 9, -0.5, 45, 9, 0.5, -45, 9, -0.5, -45, 9, -0.5, 45, -9, 0.5, -45, -9, 0.5, 45, -9, -0.5, -45, -9, 0.5, 45, -9, -0.5, 45, -9, -0.5, -45, 9, 0.5, 45, -9, 0.5, 45, 9, 0.5, -45, -9, 0.5, 45, -9, 0.5, -45, 9, 0.5, -45, -9, -0.5, 45, 9, -0.5, 45, -9, -0.5, -45, 9, -0.5, 45, 9, -0.5, -45, -9, -0.5, -45)
+
+[node name="Block3" type="StaticBody3D" unique_id=802342388]
+script = ExtResource("1_3o2wr")
+metadata/_custom_type_script = "uid://bq3fal0ji87w2"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=256292432]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -45)
+shape = SubResource("ConcavePolygonShape3D_kfkse")
+
+[node name="road" parent="." unique_id=1194607626 instance=ExtResource("2_5acwj")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -45)
+
+[node name="ObstacleSpawner" parent="." unique_id=805185212 instance=ExtResource("3_5gits")]
+obstacle_types = Array[PackedScene]([ExtResource("5_mc6q4")])

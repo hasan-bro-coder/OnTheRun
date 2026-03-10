@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cx61waeqeghrx"]
+
+[ext_resource type="Script" uid="uid://dk6rlq8mhohxm" path="res://scripts/obstacle.gd" id="1_hof70"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hof70"]
+size = Vector3(3, 3, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fmab6"]
+size = Vector3(3, 3, 3)
+
+[node name="Area3D" type="Area3D" unique_id=340141244]
+script = ExtResource("1_hof70")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=855319624]
+shape = SubResource("BoxShape3D_hof70")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=625859385]
+mesh = SubResource("BoxMesh_fmab6")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

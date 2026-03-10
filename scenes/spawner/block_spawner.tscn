@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://jldj7qd6pddi"]
+
+[ext_resource type="Script" uid="uid://b532cn8c74lo8" path="res://scripts/spawner/block_spawner.gd" id="1_aogsa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aogsa"]
+size = Vector3(1, 20, 90)
+
+[node name="BlockSpawner" type="StaticBody3D" unique_id=1352818868]
+script = ExtResource("1_aogsa")
+speed = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=854046939]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0, 0)
+shape = SubResource("BoxShape3D_aogsa")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1399479853]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, 0)
+shape = SubResource("BoxShape3D_aogsa")
