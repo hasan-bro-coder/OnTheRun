@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://w5waied4gany"]
+
+[ext_resource type="Script" uid="uid://c73o6tsbdvfio" path="res://scripts/pickable/heal.gd" id="1_se0qh"]
+[ext_resource type="PackedScene" uid="uid://twnjllrfcsds" path="res://assets/health.blend" id="2_5n0vs"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hi5cf"]
+radius = 0.9131439
+
+[node name="Heal" type="Area3D" unique_id=1105960595]
+script = ExtResource("1_se0qh")
+
+[node name="health" parent="." unique_id=579825260 instance=ExtResource("2_5n0vs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2046435160]
+shape = SubResource("SphereShape3D_hi5cf")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

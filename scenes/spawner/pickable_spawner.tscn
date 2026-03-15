@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c8o8vra0bbi2y"]
+
+[ext_resource type="Script" uid="uid://cckgvew00dlsh" path="res://scripts/spawner/pickable_spawner.gd" id="1_0wsrm"]
+
+[node name="PickableSpawner" type="Node3D" unique_id=43150171]
+script = ExtResource("1_0wsrm")

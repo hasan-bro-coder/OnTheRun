@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bh3fykvb4p0cr"]
+
+[ext_resource type="Script" uid="uid://b3rja2d5t2csn" path="res://scripts/mainmenu.gd" id="1_5mbse"]
+
+[node name="MainMenu" type="Node3D" unique_id=1579951165]
+script = ExtResource("1_5mbse")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2015784240]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1693713028]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control" unique_id=1513975962]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 360.0
+alignment = 1
+
+[node name="start" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=113194684]
+layout_mode = 2
+text = "start"
+
+[node name="Button3" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=544347661]
+layout_mode = 2
+text = "levels"
+
+[node name="Button4" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=1348496589]
+layout_mode = 2
+text = "credits"
+
+[node name="exit" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=1734193328]
+layout_mode = 2
+text = "exit"
+
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/start" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/exit" to="." method="_on_exit_pressed"]

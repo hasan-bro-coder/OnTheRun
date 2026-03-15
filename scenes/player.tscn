@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://5mgwtrlotkfy" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://cn6jwyc5b6wao" path="res://scenes/component/health.tscn" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://pobb3te6760m" path="res://scenes/component/coinHandler.tscn" id="3_qhqgy"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_u8vuu"]
 size = Vector3(1, 2, 3)
@@ -13,6 +14,7 @@ size = Vector3(1, 2, 3)
 script = ExtResource("1_3vyb7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=448667704]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
 mesh = SubResource("BoxMesh_u8vuu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=849748436]
@@ -21,9 +23,37 @@ shape = SubResource("BoxShape3D_3vyb7")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1073871342]
 transform = Transform3D(-4.371139e-08, 0.5, -0.8660254, 0, 0.8660254, 0.5, 1, 2.1855694e-08, -3.7855173e-08, -15, 13.17, 0)
 top_level = true
+visible = false
 projection = 1
 size = 30.0
 
-[node name="Health" parent="." unique_id=116879330 instance=ExtResource("2_g2els")]
+[node name="Camera3D2" type="Camera3D" parent="." unique_id=849532500]
+transform = Transform3D(-4.371139e-08, 0.42261827, -0.90630776, 0, 0.90630776, 0.42261827, 1, 1.8473232e-08, -3.961597e-08, -25, 15, 0)
+top_level = true
+current = true
+size = 30.0
+
+[node name="Health" parent="." unique_id=116879330 node_paths=PackedStringArray("health_bar") instance=ExtResource("2_g2els")]
+auto_destroy_on_death = false
+health_bar = NodePath("../ProgressBar")
+
+[node name="CoinHandler" parent="." unique_id=68629421 node_paths=PackedStringArray("coin_label") instance=ExtResource("3_qhqgy")]
+coin_label = NodePath("../Label")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1168550778]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -69.5
+offset_top = -27.0
+offset_right = 69.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="." unique_id=1532022829]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [connection signal="died" from="Health" to="." method="_on_health_died"]

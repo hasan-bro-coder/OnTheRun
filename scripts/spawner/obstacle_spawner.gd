@@ -1,15 +1,35 @@
 extends Node3D
 class_name ObstacleSpawner
 
+enum ObstacleType { BOX,RAMP,EMPTY }
 @export var obstacle_types: Array[PackedScene]
 var _obstacles: Array[Obstacle] = []
 var _obstacles_spawned_count := 0
-func _ready() -> void:
-	for i in range(1,4):
-		if randf() > 0.5:
-			_spawn_obstacles_at_position(i,randi_range(0,obstacle_types.size()-1))
+@export var obstacle_patterns: Array[Array] = [
+	[ObstacleType.RAMP,ObstacleType.RAMP,ObstacleType.RAMP],
+	[ObstacleType.BOX,ObstacleType.RAMP,ObstacleType.BOX],
+	[ObstacleType.BOX,ObstacleType.BOX,ObstacleType.BOX],
+	[ObstacleType.EMPTY,ObstacleType.RAMP,ObstacleType.EMPTY],
+	[ObstacleType.RAMP,ObstacleType.BOX,ObstacleType.RAMP],
+	[ObstacleType.EMPTY,ObstacleType.BOX,ObstacleType.EMPTY],
+	[ObstacleType.EMPTY,ObstacleType.EMPTY,ObstacleType.EMPTY],
+	
+]
 
-func _spawn_obstacles_at_position(z_pos: float,obstacle_type:int) -> void:
+func _ready() -> void:
+	var pattern:Array = obstacle_patterns.pick_random()
+	print(pattern)
+	Global.warning_data = pattern
+	for i in range(3):
+		
+		if pattern[i] == ObstacleType.EMPTY:
+			continue
+		_spawn_obstacles(i+1,pattern[i])
+	#for i in range(1,4):
+		#if randf() > 0.5:
+			#_spawn_obstacles(i,randi_range(0,obstacle_types.size()-1))
+
+func _spawn_obstacles(z_pos: float,obstacle_type:int) -> void:
 	var obstacle: Obstacle = obstacle_types[obstacle_type].instantiate()
 	add_child(obstacle)
 	obstacle.position.x = 12-z_pos*6

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cx61waeqeghrx"]
 
-[ext_resource type="Script" uid="uid://dk6rlq8mhohxm" path="res://scripts/obstacle.gd" id="1_hof70"]
+[ext_resource type="Script" uid="uid://dk6rlq8mhohxm" path="res://scripts/obstacles/obstacle.gd" id="1_hof70"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hof70"]
 size = Vector3(3, 3, 3)

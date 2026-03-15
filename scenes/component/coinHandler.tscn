@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://pobb3te6760m"]
+
+[ext_resource type="Script" uid="uid://bw0m4q8bxdvod" path="res://scripts/component/coin_handler.gd" id="1_7jlcj"]
+
+[node name="CoinHandler" type="Node" unique_id=68629421]
+script = ExtResource("1_7jlcj")
