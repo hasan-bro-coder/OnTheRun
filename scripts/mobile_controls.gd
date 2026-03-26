@@ -81,7 +81,10 @@ func _trigger_swipe_action(direction: String) -> void:
 			event.action = "jump"
 		"down":
 			event.action = "slide"
-		"left", "right":
+		"left":
+			event.action = "left"
+		"right":
+			event.action = "right"
 			pass
 			# Could also trigger dash/roll actions
 			#event.action = "dash_" + direction

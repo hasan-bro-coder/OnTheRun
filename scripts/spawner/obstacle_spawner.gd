@@ -18,7 +18,6 @@ var _obstacles_spawned_count := 0
 
 func _ready() -> void:
 	var pattern:Array = obstacle_patterns.pick_random()
-	print(pattern)
 	Global.warning_data = pattern
 	for i in range(3):
 		
@@ -39,7 +38,7 @@ func _spawn_obstacles(z_pos: float,obstacle_type:int) -> void:
 	_obstacles_spawned_count+=1
 
 func _on_obstacle_hit_player(obstacle: Obstacle) -> void:
-	print("hit",obstacle)
+	#print("hit",obstacle)
 	pass
 	#_blocks.erase(block)
 	#block.queue_free()

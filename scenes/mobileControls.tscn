@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://b51ohfakol5mp"]
 
-[ext_resource type="Texture2D" uid="uid://cvi2ih1pa4t2x" path="res://assets/controls/arrow.svg" id="1_gylk2"]
 [ext_resource type="Script" uid="uid://du5ywfqirxis5" path="res://scripts/mobile_controls.gd" id="1_uoqj0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uoqj0"]
-size = Vector2(50, 50)
+size = Vector2(60, 180)
 
 [node name="MobileControls" type="Node3D" unique_id=1915740861]
 script = ExtResource("1_uoqj0")
@@ -20,28 +19,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer/Control" unique_id=1544849808]
-position = Vector2(78, 202)
-texture_normal = ExtResource("1_gylk2")
+position = Vector2(30, 90)
 shape = SubResource("RectangleShape2D_uoqj0")
 action = "up"
 
 [node name="TouchScreenButton3" type="TouchScreenButton" parent="CanvasLayer/Control" unique_id=1624469882]
-position = Vector2(118, 341)
+position = Vector2(30, 270)
 rotation = 3.1415927
-texture_normal = ExtResource("1_gylk2")
 shape = SubResource("RectangleShape2D_uoqj0")
 action = "down"
-
-[node name="TouchScreenButton2" type="TouchScreenButton" parent="CanvasLayer/Control" unique_id=1611467244]
-position = Vector2(167, 251)
-rotation = 1.5707964
-texture_normal = ExtResource("1_gylk2")
-shape = SubResource("RectangleShape2D_uoqj0")
-action = "right"
-
-[node name="TouchScreenButton4" type="TouchScreenButton" parent="CanvasLayer/Control" unique_id=1417930634]
-position = Vector2(29.000002, 292)
-rotation = -1.5707964
-texture_normal = ExtResource("1_gylk2")
-shape = SubResource("RectangleShape2D_uoqj0")
-action = "left"

@@ -23,12 +23,11 @@ shape = SubResource("BoxShape3D_3vyb7")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1073871342]
 transform = Transform3D(-4.371139e-08, 0.5, -0.8660254, 0, 0.8660254, 0.5, 1, 2.1855694e-08, -3.7855173e-08, -15, 13.17, 0)
 top_level = true
-visible = false
 projection = 1
 size = 30.0
 
 [node name="Camera3D2" type="Camera3D" parent="." unique_id=849532500]
-transform = Transform3D(-4.371139e-08, 0.42261827, -0.90630776, 0, 0.90630776, 0.42261827, 1, 1.8473232e-08, -3.961597e-08, -25, 15, 0)
+transform = Transform3D(-4.371139e-08, 0.42261827, -0.9063077, 0, 0.9063077, 0.42261827, 1, 1.847323e-08, -3.9615966e-08, -25, 15, 0)
 top_level = true
 current = true
 size = 30.0

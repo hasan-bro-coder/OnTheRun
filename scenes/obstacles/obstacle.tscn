@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://dk6rlq8mhohxm" path="res://scripts/obstacles/obstacle.gd" id="1_hof70"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hof70"]
-size = Vector3(3, 3, 3)
+size = Vector3(5, 4, 4)
 
 [sub_resource type="BoxMesh" id="BoxMesh_fmab6"]
-size = Vector3(3, 3, 3)
+size = Vector3(4, 4, 4)
 
 [node name="Area3D" type="Area3D" unique_id=340141244]
 script = ExtResource("1_hof70")

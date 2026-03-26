@@ -36,9 +36,9 @@ func _spawn_pickables(pos: Vector3,pickable_type:int) -> void:
 	_pickables_spawned_count+=1
 
 func _picked_coin(coin: Pickable) -> void:
-	print("picked",coin)
+	#print("picked",coin)
 	pass
 
 func _on_pickable_hit_player(pickable: Pickable) -> void:
-	print("picked",pickable)
+	#print("picked",pickable)
 	pass

@@ -50,7 +50,7 @@ func take_damage(amount: float) -> bool:
 	if health_bar:
 		health_bar.value = current_health
 	
-	print(name, " took ", amount, " damage. Health: ", current_health, "/", max_health)
+	#print(name, " took ", amount, " damage. Health: ", current_health, "/", max_health)
 	
 	if current_health <= 0 and not is_dead:
 		die()
@@ -71,7 +71,7 @@ func heal(amount: float) -> bool:
 	if health_bar:
 		health_bar.value = current_health
 		
-	print(name, " healed ", amount, ". Health: ", current_health, "/", max_health)
+	#print(name, " healed ", amount, ". Health: ", current_health, "/", max_health)
 	return true
 
 ## Instantly kill this entity
