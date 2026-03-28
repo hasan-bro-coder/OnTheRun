@@ -21,15 +21,15 @@ offset_right = 320.0
 offset_bottom = 360.0
 alignment = 1
 
-[node name="start" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=113194684]
-layout_mode = 2
-text = "start"
-
-[node name="Button3" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=544347661]
+[node name="levels" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=544347661]
 layout_mode = 2
 text = "levels"
 
-[node name="Button4" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=1348496589]
+[node name="infinite" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=113194684]
+layout_mode = 2
+text = "infinite"
+
+[node name="credits" type="Button" parent="CanvasLayer/Control/HBoxContainer" unique_id=1348496589]
 layout_mode = 2
 text = "credits"
 
@@ -37,5 +37,5 @@ text = "credits"
 layout_mode = 2
 text = "exit"
 
-[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/start" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/infinite" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/exit" to="." method="_on_exit_pressed"]

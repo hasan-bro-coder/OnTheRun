@@ -3,12 +3,18 @@
 [ext_resource type="Script" uid="uid://bq3fal0ji87w2" path="res://scripts/block.gd" id="1_8r6n6"]
 [ext_resource type="PackedScene" uid="uid://d14fewnuma2bb" path="res://scenes/spawner/obstacle_spawner.tscn" id="2_4l7l2"]
 [ext_resource type="PackedScene" uid="uid://cx61waeqeghrx" path="res://scenes/obstacles/obstacle.tscn" id="3_hxorp"]
+[ext_resource type="PackedScene" uid="uid://cicmwv6tujpj1" path="res://scenes/obstacles/ramp.tscn" id="4_vjxtw"]
+[ext_resource type="PackedScene" uid="uid://c8o8vra0bbi2y" path="res://scenes/spawner/pickable_spawner.tscn" id="5_ap7nr"]
+[ext_resource type="PackedScene" uid="uid://w5waied4gany" path="res://scenes/pickable/heal.tscn" id="6_o0p1t"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8r6n6"]
 size = Vector3(18, 1, 90)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_cgrg5"]
 data = PackedVector3Array(-9, 0.5, 45, 9, 0.5, 45, -9, -0.5, 45, 9, 0.5, 45, 9, -0.5, 45, -9, -0.5, 45, 9, 0.5, -45, -9, 0.5, -45, 9, -0.5, -45, -9, 0.5, -45, -9, -0.5, -45, 9, -0.5, -45, 9, 0.5, 45, 9, 0.5, -45, 9, -0.5, 45, 9, 0.5, -45, 9, -0.5, -45, 9, -0.5, 45, -9, 0.5, -45, -9, 0.5, 45, -9, -0.5, -45, -9, 0.5, 45, -9, -0.5, 45, -9, -0.5, -45, 9, 0.5, 45, -9, 0.5, 45, 9, 0.5, -45, -9, 0.5, 45, -9, 0.5, -45, 9, 0.5, -45, -9, -0.5, 45, 9, -0.5, 45, -9, -0.5, -45, 9, -0.5, 45, 9, -0.5, -45, -9, -0.5, -45)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_30n44"]
+size = Vector3(18, 1, 90)
 
 [node name="Block" type="StaticBody3D" unique_id=424279794]
 script = ExtResource("1_8r6n6")
@@ -22,4 +28,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -45)
 shape = SubResource("ConcavePolygonShape3D_cgrg5")
 
 [node name="ObstacleSpawner" parent="." unique_id=805185212 instance=ExtResource("2_4l7l2")]
-obstacle_types = Array[PackedScene]([ExtResource("3_hxorp")])
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -45)
+obstacle_types = Array[PackedScene]([ExtResource("3_hxorp"), ExtResource("4_vjxtw")])
+
+[node name="PickableSpawner" parent="." unique_id=43150171 instance=ExtResource("5_ap7nr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -45)
+pickable_types = Array[PackedScene]([ExtResource("6_o0p1t")])
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=720048478]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -45.078117)
+shape = SubResource("BoxShape3D_30n44")

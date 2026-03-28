@@ -7,6 +7,9 @@ size = Vector2(60, 180)
 
 [node name="MobileControls" type="Node3D" unique_id=1915740861]
 script = ExtResource("1_uoqj0")
+min_swipe_distance = null
+max_swipe_time = null
+detect_in_area_only = null
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=591659157]
 

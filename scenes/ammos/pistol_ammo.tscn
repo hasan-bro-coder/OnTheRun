@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://chv72k3bh1uh5"]
+
+[ext_resource type="Script" uid="uid://cduvc4r0lfati" path="res://scripts/ammos/pistolAmmo.gd" id="1_bx3mk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4d1b0"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bx3mk"]
+material = SubResource("StandardMaterial3D_4d1b0")
+size = Vector3(0.1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bx3mk"]
+size = Vector3(0.1, 0.1, 1)
+
+[node name="PistolAmmo" type="Area3D" unique_id=301025936]
+script = ExtResource("1_bx3mk")
+speed = 100.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=349518515]
+mesh = SubResource("BoxMesh_bx3mk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2129238904]
+shape = SubResource("BoxShape3D_bx3mk")
