@@ -56,7 +56,7 @@ func _process(delta: float) -> void:
 	var tilt_speed = (current_tilt - previous_tilt) / delta
 	gyro_moved.emit(current_tilt, tilt_speed)
 	
-	var event = InputEventAction.new()
+	var event := InputEventAction.new()
 	event.pressed = true
 	
 	if current_tilt > 0.1:
@@ -118,7 +118,7 @@ func _trigger_swipe_action(direction: String) -> void:
 
 func calibrate_gyro() -> void:
 	var gravity: Vector3 = Input.get_gravity()
-	var neutral_tilt = clamp(gravity.x / 9.81, -1.0, 1.0)
+	var neutral_tilt: float = clamp(gravity.x / 9.81, -1.0, 1.0)
 	tilt_angle = neutral_tilt
 	current_tilt = neutral_tilt
 	previous_tilt = neutral_tilt

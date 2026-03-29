@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://j6in4o35ry5j"]
+
+[ext_resource type="Script" uid="uid://d3eqqthj7cv00" path="res://scripts/guns/mp5.gd" id="1_asvls"]
+[ext_resource type="PackedScene" uid="uid://c8qtewjb00a6r" path="res://scenes/ammos/rifle_ammo.tscn" id="2_slh6f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yoxup"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_slh6f"]
+material = SubResource("StandardMaterial3D_yoxup")
+size = Vector3(0.5, 0.5, 1)
+
+[sub_resource type="Animation" id="Animation_yfg77"]
+resource_name = "reload"
+
+[sub_resource type="Animation" id="Animation_heljo"]
+resource_name = "shoot"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7a8hx"]
+_data = {
+&"reload": SubResource("Animation_yfg77"),
+&"shoot": SubResource("Animation_heljo")
+}
+
+[node name="Mp5" type="Node3D" unique_id=1573845854 node_paths=PackedStringArray("muzzle_node", "animation_player", "audio_player", "raycast")]
+script = ExtResource("1_asvls")
+gun_name = "Mp5"
+current_ammo = 50
+max_ammo = 50
+reserve_ammo = 400
+fire_rate = 0.03
+is_hitscan = true
+ammo_scene = ExtResource("2_slh6f")
+muzzle_node = NodePath("Marker3D")
+animation_player = NodePath("AnimationPlayer")
+audio_player = NodePath("AudioStreamPlayer3D")
+raycast = NodePath("RayCast3D")
+metadata/_custom_type_script = "uid://5k3oib8yxbhk"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=432928478]
+mesh = SubResource("BoxMesh_slh6f")
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=945931037]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5195822)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=599992389]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=444710353]
+libraries/ = SubResource("AnimationLibrary_7a8hx")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1855232616]
+target_position = Vector3(0, 0, -200)

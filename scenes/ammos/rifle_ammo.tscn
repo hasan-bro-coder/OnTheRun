@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c8qtewjb00a6r"]
+
+[ext_resource type="Script" uid="uid://bdjqusw8cj7ij" path="res://scripts/ammos/ammo.gd" id="1_gx3cm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4d1b0"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gx3cm"]
+material = SubResource("StandardMaterial3D_4d1b0")
+size = Vector3(0.1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hawcw"]
+size = Vector3(0.1, 0.1, 1)
+
+[node name="RifleAmmo" type="Area3D" unique_id=1707976425]
+script = ExtResource("1_gx3cm")
+speed = 100.0
+metadata/_custom_type_script = "uid://bdjqusw8cj7ij"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2133868184]
+mesh = SubResource("BoxMesh_gx3cm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1958827183]
+shape = SubResource("BoxShape3D_hawcw")

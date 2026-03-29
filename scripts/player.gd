@@ -15,8 +15,6 @@ var current_lane := 0
 var current_view := 0
 var slide_timer := 1.0
 var sliding := false
-var available_guns: Dictionary = {}
-var current_gun_index: int = 0
 
 signal died()
 
@@ -25,34 +23,15 @@ signal died()
 @onready var mesh: MeshInstance3D = $MeshInstance3D
 @onready var camera: Camera3D = $Camera3D
 @onready var camera_3d_2: Camera3D = $Camera3D2
-@export var current_gun: Gun
-@export var gun_holder: Node3D 
+
 
 func _ready() -> void:
 	camera = get_viewport().get_camera_3d()
 	Global.player = self
-	var guns := [preload("res://scenes/guns/pistol.tscn")]
-		#preload("res://guns/rifle.tscn"),
-		#preload("res://guns/shotgun.tscn"),
-		#preload("res://guns/sniper.tscn"),
-		#preload("res://guns/smg.tscn")
-	
-	for i in range(guns.size()):
-		var gun_instance: Gun = guns[i].instantiate()
-		gun_instance.visible = false
-		gun_holder.add_child(gun_instance)
-		available_guns[i] = gun_instance
-	equip_gun(0)
 
 
-func equip_gun(index: int) -> void:
-	if current_gun:
-		current_gun.visible = false
-	current_gun = available_guns[index]
-	current_gun.visible = true
-	current_gun_index = index
-	if current_gun.animation_player:
-		current_gun.animation_player.play("equip")
+
+
 
 func _physics_process(delta: float) -> void:
 	_camera_follow(delta)
@@ -86,18 +65,20 @@ func _handle_input(delta: float) -> void:
 		current_lane = clamp(current_lane - 1, -1, 1)
 	if Input.is_action_just_pressed("up"):
 		current_lane = clamp(current_lane + 1, -1, 1)
-	if Input.is_action_just_pressed("left"):
-		current_view = clamp(current_view - 1, -1, 1)
-	if Input.is_action_just_pressed("right"):
-		current_view = clamp(current_view + 1, -1, 1)
+	var dir := Input.get_axis("right","left")
+	velocity.z = lerpf(velocity.z,-30 * dir,0.5)
 	
-	if Input.is_action_pressed("shoot"):
-		if current_gun:
-			current_gun.shoot()
+	#if Input.is_action_pressed("left"):
+		##current_view = clamp(current_view - 1, -1, 1)
+	#else:
+		#velocity.z = lerpf(velocity.z,0,delta*16)
+	#if Input.is_action_pressed("right"):
+		#velocity.z = lerpf(velocity.z,10,delta*2)
+		##current_view = clamp(current_view + 1, -1, 1)
+	#else:
+		#velocity.z = lerpf(velocity.z,0,delta*8)
 	
-	if Input.is_action_pressed("reload"):
-		if current_gun:
-			current_gun.reload()
+	
 
 func _handle_gravity(delta: float) -> void:
 	if not is_on_floor():
@@ -123,7 +104,9 @@ func _handle_slide(delta: float) -> void:
 
 func _handle_movement(delta: float) -> void:
 	global_position.x = lerp(global_position.x, LANE_SIZE * current_lane, LANE_SNAP_SPEED * delta)
-	global_position.z = lerp(global_position.z, VIEW_SIZE * current_view, VIEW_SNAP_SPEED * delta)
+	#global_position.z = lerp(global_position.z, VIEW_SIZE * current_view, VIEW_SNAP_SPEED * delta)
+	if (global_position.z > 17 and velocity.z > 0) or (global_position.z < -17 and velocity.z < 0):
+		velocity.z = 0
 
 	if global_position.y >= 5.0:
 		rotation_degrees.x = lerp(rotation_degrees.x, -25.0, delta * 8.0)

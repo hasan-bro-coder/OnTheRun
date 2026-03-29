@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ccj8wortpfqa0"]
 
 [ext_resource type="Script" uid="uid://5mgwtrlotkfy" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://coxido7x5nyut" path="res://scripts/gun_handler.gd" id="2_dqkch"]
 [ext_resource type="PackedScene" uid="uid://cn6jwyc5b6wao" path="res://scenes/component/health.tscn" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://pobb3te6760m" path="res://scenes/component/coinHandler.tscn" id="3_qhqgy"]
 
@@ -10,12 +11,15 @@ size = Vector3(1, 2, 3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_3vyb7"]
 size = Vector3(1, 2, 3)
 
-[node name="Player" type="CharacterBody3D" unique_id=780114426 node_paths=PackedStringArray("gun_holder") groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=780114426 groups=["player"]]
 script = ExtResource("1_3vyb7")
-gun_holder = NodePath("GunHandler")
 
 [node name="GunHandler" type="Node3D" parent="." unique_id=177864511]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -0.7756157, 0, 0)
+top_level = true
+script = ExtResource("2_dqkch")
+min_angle = -180.0
+max_angle = 0.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=448667704]
 transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
