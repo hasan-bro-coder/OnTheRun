@@ -24,7 +24,7 @@ _data = {
 
 [node name="Pistol" type="Node3D" unique_id=35288665 node_paths=PackedStringArray("muzzle_node", "animation_player", "audio_player", "raycast")]
 script = ExtResource("1_yoxup")
-reload_time = 1.0
+reload_time = 0.5
 is_hitscan = true
 ammo_scene = ExtResource("2_yfg77")
 muzzle_node = NodePath("Marker3D")
@@ -34,6 +34,7 @@ raycast = NodePath("RayCast3D")
 metadata/_custom_type_script = "uid://5k3oib8yxbhk"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1277575241]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 0)
 mesh = SubResource("BoxMesh_yfg77")
 
 [node name="Marker3D" type="Marker3D" parent="." unique_id=375485690]

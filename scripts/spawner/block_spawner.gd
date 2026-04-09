@@ -15,8 +15,8 @@ var _total_block_types: = 0
 
 func _ready() -> void:
 	_total_block_types = len(block_types)
-	for i in range(block_per_type):
-		_spawn_block_at_position(i * block_length,1)
+	for i in range(3):
+		_spawn_block_at_position(i * block_length,1 if len(block_types) > 1 else 0) 
 	
 
 func _spawn_block_at_position(z_pos: float,block_type:int)-> void:
@@ -34,14 +34,14 @@ func _on_block_reached_despawn_point(block: Block)-> void:
 	@warning_ignore("integer_division")
 	var block_type_index:int = _get_block_type(_blocks_spawned_count)
 	#floor(_blocks_spawned_count / pattern_length) % block_types.size()
-	_spawn_block_at_position(_last_block.global_position.z+block_length-5,block_type_index)
+	_spawn_block_at_position(_last_block.global_position.z+block_length-Global.speed,block_type_index)
 	warning_handler.set_warning()
 
 func _get_block_type(count: int) -> int:
 	var segment_size: int = block_per_type * 2  # 20
 	var pos_in_segment: int = count % segment_size
 
-	if pos_in_segment >= block_per_type:
+	if pos_in_segment >= block_per_type or len(block_types) < 2:
 		return 0  # connector
 	else:
 		var type_index: int = count / segment_size

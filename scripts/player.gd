@@ -1,17 +1,9 @@
 extends CharacterBody3D
 class_name Player
 
-const SPEED := 45.0
-const GRAVITY := 120.0
-const JUMP_HEIGHT := 8
-const JUMP_BUFFER_TIME := 0.15
-const LANE_SIZE := 6.0
-const VIEW_SIZE := 15.0
-const LANE_SNAP_SPEED := 10.0
-const VIEW_SNAP_SPEED := 6.0
+
 
 var jump_buffer := 0.0
-var current_lane := 0
 var current_view := 0
 var slide_timer := 1.0
 var sliding := false
@@ -53,7 +45,7 @@ func _handle_input(delta: float) -> void:
 	jump_buffer -= delta
 
 	if Input.is_action_just_pressed("jump"):
-		jump_buffer = JUMP_BUFFER_TIME
+		jump_buffer = Global.JUMP_BUFFER_TIME
 
 	if Input.is_action_just_pressed("slide"):
 		if not is_on_floor():
@@ -62,9 +54,9 @@ func _handle_input(delta: float) -> void:
 		slide_timer = 1.0
 
 	if Input.is_action_just_pressed("down"):
-		current_lane = clamp(current_lane - 1, -1, 1)
+		Lane.player_lane = clamp(Lane.player_lane - 1, 0, 2)
 	if Input.is_action_just_pressed("up"):
-		current_lane = clamp(current_lane + 1, -1, 1)
+		Lane.player_lane = clamp(Lane.player_lane + 1, 0, 2)
 	var dir := Input.get_axis("right","left")
 	velocity.z = lerpf(velocity.z,-30 * dir,0.5)
 	
@@ -82,7 +74,7 @@ func _handle_input(delta: float) -> void:
 
 func _handle_gravity(delta: float) -> void:
 	if not is_on_floor():
-		velocity.y -= GRAVITY * Global.speed * delta
+		velocity.y -= Global.GRAVITY * Global.speed * delta
 
 	if jump_buffer > 0.0 and is_on_floor():
 		jump()
@@ -103,7 +95,7 @@ func _handle_slide(delta: float) -> void:
 		sliding = false
 
 func _handle_movement(delta: float) -> void:
-	global_position.x = lerp(global_position.x, LANE_SIZE * current_lane, LANE_SNAP_SPEED * delta)
+	global_position.x = lerp(global_position.x, Lane.LANE_SIZE * (Lane.player_lane - 1), 10 * delta)
 	#global_position.z = lerp(global_position.z, VIEW_SIZE * current_view, VIEW_SNAP_SPEED * delta)
 	if (global_position.z > 17 and velocity.z > 0) or (global_position.z < -17 and velocity.z < 0):
 		velocity.z = 0
@@ -117,7 +109,7 @@ func _handle_movement(delta: float) -> void:
 		rotation_degrees.x = lerp(rotation_degrees.x, -45.0, delta * 5.0)
 
 func jump() -> void:
-	velocity.y = sqrt(2.0 * GRAVITY * Global.speed * JUMP_HEIGHT)
+	velocity.y = sqrt(2.0 * Global.GRAVITY * Global.speed * Global.JUMP_HEIGHT)
 	jump_buffer = 0.0
 
 func _on_health_died() -> void:

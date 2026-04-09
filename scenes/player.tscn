@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://coxido7x5nyut" path="res://scripts/gun_handler.gd" id="2_dqkch"]
 [ext_resource type="PackedScene" uid="uid://cn6jwyc5b6wao" path="res://scenes/component/health.tscn" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://pobb3te6760m" path="res://scenes/component/coinHandler.tscn" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://cs1gqiq0hrnh6" path="res://assets/crossheir/outer.png" id="3_qlg0r"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_u8vuu"]
 size = Vector3(1, 2, 3)
@@ -15,11 +16,17 @@ size = Vector3(1, 2, 3)
 script = ExtResource("1_3vyb7")
 
 [node name="GunHandler" type="Node3D" parent="." unique_id=177864511]
-transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, -0.7756157, 0, 0)
 top_level = true
 script = ExtResource("2_dqkch")
 min_angle = -180.0
 max_angle = 0.0
+
+[node name="crossheir" type="Sprite3D" parent="GunHandler" unique_id=651504362]
+transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, 0, 0, 0)
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture = ExtResource("3_qlg0r")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=448667704]
 transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
@@ -29,7 +36,7 @@ mesh = SubResource("BoxMesh_u8vuu")
 shape = SubResource("BoxShape3D_3vyb7")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1073871342]
-transform = Transform3D(-4.371139e-08, 0.5, -0.8660254, 0, 0.8660254, 0.5, 1, 2.1855694e-08, -3.7855173e-08, -15, 13.17, 0)
+transform = Transform3D(-4.371139e-08, 0.57357645, -0.81915206, 0, 0.81915206, 0.57357645, 1, 2.5071824e-08, -3.5806274e-08, -15, 9.215, 0)
 top_level = true
 projection = 1
 size = 30.0

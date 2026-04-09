@@ -8,10 +8,13 @@ var current_gun_index: int = 0
 @export var max_angle: float = 210.0
 @export var rotation_speed: float = 15.0
 @onready var player: Player = $".."
-
+@onready var crossheir: Sprite3D = $crossheir
+var locked_enemy: Enemy
 func _ready() -> void:
 	if not camera:
 		camera = get_viewport().get_camera_3d()
+	
+	Lane.lane_changed.connect(_lock_on_enemy)
 	
 	var guns := [preload("res://scenes/guns/pistol.tscn"),
 		preload("res://scenes/guns/mp5.tscn"),
@@ -31,8 +34,22 @@ func equip_gun(index: int) -> void:
 	current_gun_index = index
 
 func _physics_process(delta: float) -> void:
-	global_position = player.global_position + Vector3(-0.777,0,0)
-	_update_gun_rotation(delta)
+	global_position = player.global_position 
+	#_update_gun_rotation(delta)
+	#_lock_on_enemy()
+	if locked_enemy:
+		look_at(locked_enemy.global_position)
+		crossheir.global_position.x = locked_enemy.global_position.x
+		crossheir.global_position.y = locked_enemy.global_position.y
+		crossheir.global_position.z = lerp(crossheir.global_position.z,locked_enemy.global_position.z,0.5)
+	
+		#rotation = Vector3(2*PI,2*PI,2*PI)
+	else:
+		_update_gun_rotation(delta)
+		#crossheir.global_position.z = lerp(crossheir.global_position.z,global_position.z+10.0,0.5)
+		rotation_degrees = Vector3(-180,0,0)
+
+		
 	
 	if Input.is_action_pressed("shoot"):
 		if current_gun:
@@ -48,6 +65,19 @@ func _physics_process(delta: float) -> void:
 			current_gun_index = 0
 		equip_gun(current_gun_index)
 
+func _lock_on_enemy(lane:int) -> void:
+	print(lane,Lane.lane)
+	if Lane.lane[Lane.player_lane] == []:
+		locked_enemy = null
+		return
+	var enemy = Lane.lane[Lane.player_lane][0]
+	print(enemy)
+	if !enemy:
+		locked_enemy = null
+		return
+	locked_enemy = enemy
+	#_look_at_smoothly(current_gun.global_position,enemy.global_position+Vector3(0,0,0),self)
+
 func _update_gun_rotation(_delta:float) -> void:
 	if not current_gun or not camera:
 		return
@@ -62,6 +92,15 @@ func _update_gun_rotation(_delta:float) -> void:
 	if intersection:
 		var direction:Vector3 = (current_gun.global_position - intersection).normalized()
 		var angle: float = atan2(direction.z,direction.y) - PI / 2
-		if rad_to_deg(angle) < -20 and rad_to_deg(angle) > -160:
+		if rad_to_deg(angle) < 0 and rad_to_deg(angle) > -180:
 			return
-		rotation.x = angle
+		crossheir.global_position.z = lerp(crossheir.global_position.z,intersection.z,0.5)
+		crossheir.global_position.y = lerp(crossheir.global_position.y,intersection.y,0.5)
+		#rotation.x = angle
+
+func _look_at_smoothly(from: Vector3,to:Vector3,of:Node3D):
+	var direction:Vector3 = (from - to).normalized()
+	var angle: float = atan2(direction.z,direction.y) - PI / 2
+	if rad_to_deg(angle) < -20 and rad_to_deg(angle) > -160:
+		return
+	of.rotation.x = angle

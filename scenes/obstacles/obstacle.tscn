@@ -9,6 +9,8 @@ size = Vector3(5, 4, 4)
 size = Vector3(4, 4, 4)
 
 [node name="Area3D" type="Area3D" unique_id=340141244]
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_hof70")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=855319624]

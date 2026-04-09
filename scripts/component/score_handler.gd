@@ -11,4 +11,4 @@ func _physics_process(delta: float) -> void:
 	if score_update_timer < 0.0:
 		score_label.text = str(int(Global.score))
 		score_update_timer = 0.1
-		Global.speed = 0.8 + Global.score / 100
+		Global.speed = 0.8 + Global.score / 600

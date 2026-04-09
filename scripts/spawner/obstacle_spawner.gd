@@ -17,7 +17,7 @@ var _obstacles_spawned_count := 0
 ]
 
 func _ready() -> void:
-	var pattern:Array = obstacle_patterns.pick_random()
+	var pattern:Array = obstacle_patterns.pick_random() if randf() < 0.2 else [ObstacleType.EMPTY,ObstacleType.EMPTY,ObstacleType.EMPTY]
 	Global.warning_data = pattern
 	for i in range(3):
 		

@@ -3,6 +3,8 @@ class_name Obstacle
 
 signal hit_player
 
+@export var does_damage: bool = true
+
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		var player:Player = body

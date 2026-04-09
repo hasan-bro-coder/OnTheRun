@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://d1di6miuccmhi"]
+
+[ext_resource type="Script" uid="uid://dffbp2heaxvtm" path="res://scripts/enemy/enemy.gd" id="1_a3pup"]
+[ext_resource type="PackedScene" uid="uid://cn6jwyc5b6wao" path="res://scenes/component/health.tscn" id="2_40wdo"]
+[ext_resource type="PackedScene" uid="uid://cyhixy67aaf5x" path="res://scenes/guns/pistol.tscn" id="3_40wdo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_40wdo"]
+albedo_color = Color(1, 0.01666665, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tjssy"]
+material = SubResource("StandardMaterial3D_40wdo")
+size = Vector3(1, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gl05p"]
+size = Vector3(1, 2, 3)
+
+[node name="Enemy" type="CharacterBody3D" unique_id=678291132 node_paths=PackedStringArray("gunScene") groups=["enemy"]]
+script = ExtResource("1_a3pup")
+gunScene = NodePath("GunHandle/Pistol")
+lane_switch_delay = 6.0
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1854439869]
+visible = false
+target_position = Vector3(0, 0, 20)
+collision_mask = 9
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1484378421]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
+mesh = SubResource("BoxMesh_tjssy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=801450713]
+shape = SubResource("BoxShape3D_gl05p")
+
+[node name="Health" parent="." unique_id=116879330 instance=ExtResource("2_40wdo")]
+auto_destroy_on_death = false
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=2002987694]
+autostart = true
+
+[node name="MoveTimer" type="Timer" parent="." unique_id=1864744357]
+wait_time = 6.0
+autostart = true
+
+[node name="LaneTimer" type="Timer" parent="." unique_id=563714942]
+wait_time = 6.0
+autostart = true
+
+[node name="GunHandle" type="Node3D" parent="." unique_id=1718634259]
+
+[node name="Pistol" parent="GunHandle" unique_id=35288665 instance=ExtResource("3_40wdo")]
+is_enemy = true
+
+[connection signal="died" from="Health" to="." method="_on_health_died"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="timeout" from="LaneTimer" to="." method="_on_lane_switch_timer_timeout"]
