@@ -46,14 +46,14 @@ func _process(delta: float) -> void:
 		#return
 	
 	var gyro: Vector3 = Input.get_gyroscope()
-	var rotation_speed = gyro.y
+	var rotation_speed := gyro.y
 	
 	tilt_angle += rotation_speed * delta
 	tilt_angle = clamp(tilt_angle, -max_tilt, max_tilt)
 	
 	current_tilt = lerp(current_tilt, tilt_angle, gyro_smoothing * delta)
 	
-	var tilt_speed = (current_tilt - previous_tilt) / delta
+	var tilt_speed := (current_tilt - previous_tilt) / delta
 	gyro_moved.emit(current_tilt, tilt_speed)
 	
 	var event := InputEventAction.new()

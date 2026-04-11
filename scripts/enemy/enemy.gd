@@ -30,6 +30,8 @@ var current_lane: int = 0
 var slide_timer := 1.0
 var sliding := false
 var target_z := 0
+var base_target_z := 0
+
 func _ready() -> void:
 	# Start timers
 	shoot_timer.wait_time = shoot_delay
@@ -44,10 +46,14 @@ func _physics_process(delta: float) -> void:
 	#global_position.x = lerp(global_position.x, 6.0 * (current_lane-1), 4 * delta)
 	#if not is_on_floor():
 		#velocity.y += -60 * delta
+	if Global.nitro:
+		target_z = base_target_z - 60
+	else:
+		target_z = base_target_z + 60
 	if global_position.z < target_z - 5:
-		_handle_input(Actions.LEFT,abs(global_position.z - target_z) / 4)
+		_handle_input(Actions.LEFT,abs(global_position.z - target_z) / 1)
 	elif global_position.z > target_z + 5:
-		_handle_input(Actions.RIGHT,abs(global_position.z - target_z) / 4)
+		_handle_input(Actions.RIGHT,abs(global_position.z - target_z) / 1)
 		
 	_handle_yaxis(delta)
 	_handle_slide(delta)
@@ -126,7 +132,10 @@ func shoot() -> void:
 		gunScene.shoot()
 
 func _on_move_timer_timeout() -> void:
+	if Global.nitro:
+		return
 	target_z = randi_range(-12,12)
+	base_target_z = target_z 
 
 func _on_lane_switch_timer_timeout() -> void:
 	if Lane.has_space():

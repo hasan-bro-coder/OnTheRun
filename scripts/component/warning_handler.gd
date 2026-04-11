@@ -13,6 +13,10 @@ func set_warning() -> void:
 		meshes[i].get_active_material(0).albedo_color = color
 	pass
 
+func _physics_process(delta: float) -> void:
+	global_position.z = Global.player_pos.z + 20
+
+
 func get_color_from_obstacle(data: ObstacleSpawner.ObstacleType) -> Color:
 	match data:
 		ObstacleSpawner.ObstacleType.EMPTY:

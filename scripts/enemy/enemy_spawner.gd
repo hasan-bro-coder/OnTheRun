@@ -6,7 +6,7 @@ extends Node3D
 @export var spawn_distance_behind: float = 20.0
 @onready var spawn_timer: Timer = $SpawnTimer
 var can_spawn: bool = true
-var enemy_count = 0
+var enemy_count := 0
 func _ready() -> void:
 	spawn_enemy_on_lane()
 	spawn_timer.wait_time = spawn_delay
@@ -36,12 +36,12 @@ func spawn_enemy_on_lane() -> void:
 	if enemy_count >= 4:
 		return
 	var enemy:Enemy = enemy_scene.instantiate()
-	var lane := Lane.spawn_on_lane(enemy)
+	var lane :int = Lane.spawn_on_lane(enemy)
 	var spawn_x := 6 * (lane - 1)
-	var spawn_z := Global.player_pos.z - spawn_distance_behind
+	var spawn_z :float = Global.player_pos.z - spawn_distance_behind
 	var spawn_y := 10.0
+	add_child(enemy)
 	enemy.global_position = Vector3(spawn_x, spawn_y, spawn_z)
 	enemy.current_lane = lane
-	add_child(enemy)
 	enemy.died.connect(func()->void: enemy_count-=1)
 	enemy_count+=1

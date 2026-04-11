@@ -6,6 +6,9 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_aogsa"]
 size = Vector3(1, 200, 90)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_xabqy"]
+size = Vector3(18, 50, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xabqy"]
 transparency = 1
 albedo_color = Color(1, 0, 0, 0)
@@ -37,6 +40,10 @@ shape = SubResource("BoxShape3D_aogsa")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1399479853]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, 0)
 shape = SubResource("BoxShape3D_aogsa")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=479106036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
+shape = SubResource("BoxShape3D_xabqy")
 
 [node name="WarningHandler" type="Node3D" parent="." unique_id=802192280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.565996, 29.12157)

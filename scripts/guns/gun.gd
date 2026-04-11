@@ -202,7 +202,7 @@ func shoot() -> bool:
 func _hitscan_shot(ammo_instance:Ammo) -> void:
 	if raycast.is_colliding() and ammo_instance:
 		var hit_object := raycast.get_collider()
-		if hit_object is Enemy:
+		if hit_object is Enemy or hit_object is Player:
 			hit_object.health.take_damage(ammo_instance.damage)
 
 func _fire_projectile() -> Ammo:

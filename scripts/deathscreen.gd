@@ -6,9 +6,12 @@ class_name DeathScreen
 func show_deathsceen()->void:
 	show()
 	score.text = "score: " + str(int(Global.score))
-	highscore.text = "highscore: " + str(int(Global.score))
+	highscore.text = "highscore: " + str(int(max(Saves.data.high_score,Global.score)))
+	if Global.score > Saves.data.high_score:
+		Saves.data.high_score = Global.score
+	Saves.save()
 	get_tree().paused = true
-
+	
 func _on_button_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()

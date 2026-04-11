@@ -35,10 +35,10 @@ func _spawn_pickables(pos: Vector3,pickable_type:int) -> void:
 	pickable.hit_player.connect(_on_pickable_hit_player.bind(pickable))
 	_pickables_spawned_count+=1
 
-func _picked_coin(coin: Pickable) -> void:
+func _picked_coin(_coin: Pickable) -> void:
 	#print("picked",coin)
 	pass
 
-func _on_pickable_hit_player(pickable: Pickable) -> void:
+func _on_pickable_hit_player(_pickable: Pickable) -> void:
 	#print("picked",pickable)
 	pass

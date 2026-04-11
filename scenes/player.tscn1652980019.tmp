@@ -48,6 +48,7 @@ current = true
 size = 30.0
 
 [node name="Health" parent="." unique_id=116879330 node_paths=PackedStringArray("health_bar") instance=ExtResource("2_g2els")]
+invulnerable = true
 auto_destroy_on_death = false
 health_bar = NodePath("../ProgressBar")
 

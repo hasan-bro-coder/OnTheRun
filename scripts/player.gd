@@ -46,20 +46,22 @@ func _handle_input(delta: float) -> void:
 
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer = Global.JUMP_BUFFER_TIME
-
 	if Input.is_action_just_pressed("slide"):
 		if not is_on_floor():
 			velocity.y = -40.0
 		sliding = true
 		slide_timer = 1.0
-
 	if Input.is_action_just_pressed("down"):
 		Lane.player_lane = clamp(Lane.player_lane - 1, 0, 2)
 	if Input.is_action_just_pressed("up"):
-		Lane.player_lane = clamp(Lane.player_lane + 1, 0, 2)
+		Lane.player_lane = clamp(Lane.player_lane + 1, 0, 2)	
 	var dir := Input.get_axis("right","left")
 	velocity.z = lerpf(velocity.z,-30 * dir,0.5)
-	
+	if Input.is_action_pressed("nitro"):
+		Global.nitro = true
+		Global.speed = Global.speed_base * 2
+	else:
+		Global.speed = Global.speed_base
 	#if Input.is_action_pressed("left"):
 		##current_view = clamp(current_view - 1, -1, 1)
 	#else:
