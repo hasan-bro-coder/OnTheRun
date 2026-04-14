@@ -25,8 +25,8 @@ _data = {
 [node name="Mp5" type="Node3D" unique_id=1573845854 node_paths=PackedStringArray("muzzle_node", "animation_player", "audio_player", "raycast")]
 script = ExtResource("1_asvls")
 gun_name = "Mp5"
-current_ammo = 50
-max_ammo = 50
+current_ammo = 150
+max_ammo = 150
 reserve_ammo = 400
 fire_rate = 0.03
 reload_time = 0.5

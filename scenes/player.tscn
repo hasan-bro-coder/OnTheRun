@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://5mgwtrlotkfy" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://coxido7x5nyut" path="res://scripts/gun_handler.gd" id="2_dqkch"]
 [ext_resource type="PackedScene" uid="uid://cn6jwyc5b6wao" path="res://scenes/component/health.tscn" id="2_g2els"]
-[ext_resource type="PackedScene" uid="uid://pobb3te6760m" path="res://scenes/component/coinHandler.tscn" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://cs1gqiq0hrnh6" path="res://assets/crossheir/outer.png" id="3_qlg0r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
+size = Vector2(60, 30)
 
 [sub_resource type="BoxMesh" id="BoxMesh_u8vuu"]
 size = Vector3(1, 2, 3)
@@ -15,17 +17,66 @@ size = Vector3(1, 2, 3)
 [node name="Player" type="CharacterBody3D" unique_id=780114426 groups=["player"]]
 script = ExtResource("1_3vyb7")
 
-[node name="GunHandler" type="Node3D" parent="." unique_id=177864511]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=85310686]
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer" unique_id=1168550778]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -69.5
+offset_top = -27.0
+offset_right = 69.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer" unique_id=1701342193]
+position = Vector2(427, 317)
+shape = SubResource("RectangleShape2D_dqkch")
+action = "switch_gun"
+
+[node name="gunName" type="Label" parent="CanvasLayer" unique_id=378171254]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -235.0
+offset_top = -55.0
+offset_right = -192.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "pistol"
+
+[node name="ammo" type="Label" parent="CanvasLayer" unique_id=1158356359]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -231.0
+offset_top = -23.0
+offset_right = -191.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "0/0"
+
+[node name="GunHandler" type="Node3D" parent="." unique_id=177864511 node_paths=PackedStringArray("ammo_label", "gun_name_label")]
 top_level = true
 script = ExtResource("2_dqkch")
 min_angle = -180.0
 max_angle = 0.0
+ammo_label = NodePath("../CanvasLayer/ammo")
+gun_name_label = NodePath("../CanvasLayer/gunName")
 
 [node name="crossheir" type="Sprite3D" parent="GunHandler" unique_id=651504362]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(-2.8412401e-09, 0, 0.065, 0, 0.065, 0, -0.065, 0, -2.8412401e-09, 0, 0, 0)
 billboard = 1
-double_sided = false
+shaded = true
 no_depth_test = true
+fixed_size = true
 texture = ExtResource("3_qlg0r")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=448667704]
@@ -49,25 +100,6 @@ size = 30.0
 
 [node name="Health" parent="." unique_id=116879330 node_paths=PackedStringArray("health_bar") instance=ExtResource("2_g2els")]
 auto_destroy_on_death = false
-health_bar = NodePath("../ProgressBar")
-
-[node name="CoinHandler" parent="." unique_id=68629421 node_paths=PackedStringArray("coin_label") instance=ExtResource("3_qhqgy")]
-coin_label = NodePath("../Label")
-
-[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1168550778]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -69.5
-offset_top = -27.0
-offset_right = 69.5
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Label" type="Label" parent="." unique_id=1532022829]
-offset_right = 40.0
-offset_bottom = 23.0
+health_bar = NodePath("../CanvasLayer/ProgressBar")
 
 [connection signal="died" from="Health" to="." method="_on_health_died"]

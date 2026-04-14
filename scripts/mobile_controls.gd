@@ -27,7 +27,13 @@ var is_tracking: bool = false
 var tilt_angle: float = 0.0
 var current_tilt: float = 0.0
 var previous_tilt: float = 0.0
+var use_gyro := false
 
+func _ready():
+	# Detect if gyroscope is available
+	var gyro = Input.get_gyroscope()
+	use_gyro = false
+	#gyro != Vector3.ZERO
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.pressed:
@@ -42,37 +48,91 @@ func _input(event: InputEvent) -> void:
 		touch_id = -1
 
 func _process(delta: float) -> void:
+	var tilt_input := 0.0
+
+	if use_gyro:
+		# -------- GYRO MODE --------
+		var gyro: Vector3 = Input.get_gyroscope()
+		var rotation_speed := gyro.y
+		
+		tilt_angle += rotation_speed * delta
+	else:
+		# -------- ACCELEROMETER MODE --------
+		var accel: Vector3 = Input.get_accelerometer()
+		
+		# Normalize to avoid weird values
+		accel = accel.normalized()
+		
+		# Use X axis for left/right tilt
+		# You can invert this if controls feel reversed
+		tilt_angle = accel.x * max_tilt
+
+	# Clamp tilt
+	tilt_angle = clamp(tilt_angle, -max_tilt, max_tilt)
+
+	# Smooth it
+	current_tilt = lerp(current_tilt, tilt_angle, gyro_smoothing * delta)
+
+	# Calculate tilt speed
+	var tilt_speed := (current_tilt - previous_tilt) / delta
+	gyro_moved.emit(current_tilt, tilt_speed)
+
+	# -------- INPUT SIMULATION --------
+	var event := InputEventAction.new()
+
+	if current_tilt > 0.1:
+		event.action = "right"
+		event.pressed = true
+		Input.parse_input_event(event)
+
+		await get_tree().process_frame
+
+		event.pressed = false
+		Input.parse_input_event(event)
+
+	elif current_tilt < -0.1:
+		event.action = "left"
+		event.pressed = true
+		Input.parse_input_event(event)
+
+		await get_tree().process_frame
+
+		event.pressed = false
+		Input.parse_input_event(event)
+
+	previous_tilt = current_tilt
 	#if not DisplayServer.is_touchscreen_available():
 		#return
 	
-	var gyro: Vector3 = Input.get_gyroscope()
-	var rotation_speed := gyro.y
 	
-	tilt_angle += rotation_speed * delta
-	tilt_angle = clamp(tilt_angle, -max_tilt, max_tilt)
-	
-	current_tilt = lerp(current_tilt, tilt_angle, gyro_smoothing * delta)
-	
-	var tilt_speed := (current_tilt - previous_tilt) / delta
-	gyro_moved.emit(current_tilt, tilt_speed)
-	
-	var event := InputEventAction.new()
-	event.pressed = true
-	
-	if current_tilt > 0.1:
-		event.action = "right"
-		Input.parse_input_event(event)
-		await get_tree().process_frame
-		event.pressed = false
-		Input.parse_input_event(event)
-	elif current_tilt < -0.1:
-		event.action = "left"
-		Input.parse_input_event(event)
-		await get_tree().process_frame
-		event.pressed = false
-		Input.parse_input_event(event)
-	
-	previous_tilt = current_tilt
+	#var gyro: Vector3 = Input.get_gyroscope()
+	#var rotation_speed := gyro.y
+	#
+	#tilt_angle += rotation_speed * delta
+	#tilt_angle = clamp(tilt_angle, -max_tilt, max_tilt)
+	#
+	#current_tilt = lerp(current_tilt, tilt_angle, gyro_smoothing * delta)
+	#
+	#var tilt_speed := (current_tilt - previous_tilt) / delta
+	#gyro_moved.emit(current_tilt, tilt_speed)
+	#
+	#var event := InputEventAction.new()
+	#event.pressed = true
+	#
+	#if current_tilt > 0.1:
+		#event.action = "right"
+		#Input.parse_input_event(event)
+		#await get_tree().process_frame
+		#event.pressed = false
+		#Input.parse_input_event(event)
+	#elif current_tilt < -0.1:
+		#event.action = "left"
+		#Input.parse_input_event(event)
+		#await get_tree().process_frame
+		#event.pressed = false
+		#Input.parse_input_event(event)
+	#
+	#previous_tilt = current_tilt
 
 func _evaluate_swipe(touch_end: Vector2) -> void:
 	var swipe_vector := touch_end - touch_start

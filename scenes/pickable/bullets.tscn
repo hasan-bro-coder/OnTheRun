@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://1d1gu8mxuja7"]
+
+[ext_resource type="Script" uid="uid://c4s7jp6k2bk3h" path="res://scripts/pickable/bullets.gd" id="1_tx5b2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8dnj"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3l6rv"]
+material = SubResource("StandardMaterial3D_f8dnj")
+size = Vector3(0.5, 2, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mn8s8"]
+size = Vector3(6, 3, 1)
+
+[node name="Bullets" type="Area3D" unique_id=835083553]
+script = ExtResource("1_tx5b2")
+metadata/_custom_type_script = "uid://c7j82qolwsoe"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1269703283]
+mesh = SubResource("BoxMesh_3l6rv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=510994987]
+shape = SubResource("BoxShape3D_mn8s8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

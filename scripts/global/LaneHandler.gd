@@ -6,12 +6,15 @@ const MAXIMUM_ENEMY_ON_LANE := 2
 const LANE_SIZE := 6.0
 
 var lane: Array[Array] = [[],[],[]]
-var player_lane := 0:
+var player_lane := 1:
 	set(val):
 		player_lane = val
 		player_changed_lane.emit(val)
 		lane_changed.emit(val)
 
+func reset()->void:
+	lane = [[],[],[]]
+	player_lane = 1
 
 func add_to_lane(lane_num:int,enemy: Enemy) -> void:
 	lane[lane_num].push_back(enemy)

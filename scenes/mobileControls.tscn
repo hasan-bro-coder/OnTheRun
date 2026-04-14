@@ -1,15 +1,16 @@
 [gd_scene format=3 uid="uid://b51ohfakol5mp"]
 
 [ext_resource type="Script" uid="uid://du5ywfqirxis5" path="res://scripts/mobile_controls.gd" id="1_uoqj0"]
+[ext_resource type="Texture2D" uid="uid://j6bc4m4tx3u5" path="res://assets/crossheir/inner.svg" id="2_uoqj0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uoqj0"]
 size = Vector2(60, 180)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3u0vd"]
+
 [node name="MobileControls" type="Node3D" unique_id=1915740861]
 script = ExtResource("1_uoqj0")
-min_swipe_distance = null
-max_swipe_time = null
-detect_in_area_only = null
+gyro_sensitivity = 2.5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=591659157]
 
@@ -31,3 +32,12 @@ position = Vector2(30, 270)
 rotation = 3.1415927
 shape = SubResource("RectangleShape2D_uoqj0")
 action = "down"
+
+[node name="TouchScreenButton2" type="TouchScreenButton" parent="CanvasLayer/Control" unique_id=660794749]
+position = Vector2(551, 272)
+scale = Vector2(3, 3)
+texture_normal = ExtResource("2_uoqj0")
+shape = SubResource("RectangleShape2D_3u0vd")
+passby_press = true
+action = "shoot"
+visibility_mode = 1

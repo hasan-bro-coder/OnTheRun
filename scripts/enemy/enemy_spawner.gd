@@ -8,7 +8,7 @@ extends Node3D
 var can_spawn: bool = true
 var enemy_count := 0
 func _ready() -> void:
-	spawn_enemy_on_lane()
+	#spawn_enemy_on_lane()
 	spawn_timer.wait_time = spawn_delay
 	spawn_timer.start()
 
@@ -39,7 +39,8 @@ func spawn_enemy_on_lane() -> void:
 	var lane :int = Lane.spawn_on_lane(enemy)
 	var spawn_x := 6 * (lane - 1)
 	var spawn_z :float = Global.player_pos.z - spawn_distance_behind
-	var spawn_y := 10.0
+	var spawn_y := 3
+	enemy.position = Vector3(spawn_x, spawn_y, spawn_z)
 	add_child(enemy)
 	enemy.global_position = Vector3(spawn_x, spawn_y, spawn_z)
 	enemy.current_lane = lane

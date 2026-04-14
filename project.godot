@@ -115,7 +115,10 @@ nitro={
 
 [input_devices]
 
+sensors/enable_accelerometer=true
+sensors/enable_gravity=true
 sensors/enable_gyroscope=true
+sensors/enable_magnetometer=true
 pointing/emulate_touch_from_mouse=true
 
 [physics]

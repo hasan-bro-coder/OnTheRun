@@ -1,4 +1,5 @@
 extends Node3D
+class_name GunHandler
 
 var available_guns: Dictionary = {}
 var current_gun_index: int = 0
@@ -9,7 +10,10 @@ var current_gun_index: int = 0
 @export var rotation_speed: float = 15.0
 @onready var player: Player = $".."
 @onready var crossheir: Sprite3D = $crossheir
-@onready var crossheir2: Sprite2D = $crossheir2
+
+@export var ammo_label: Label
+@export var gun_name_label: Label
+
 var locked_enemy: Enemy
 func _ready() -> void:
 	if not camera:
@@ -33,6 +37,8 @@ func equip_gun(index: int) -> void:
 	current_gun = available_guns[index]
 	current_gun.visible = true
 	current_gun_index = index
+	gun_name_label.text = current_gun.name
+	
 
 func _physics_process(delta: float) -> void:
 	global_position = player.global_position 
@@ -54,13 +60,14 @@ func _physics_process(delta: float) -> void:
 		_update_gun_rotation(delta)
 		#crossheir.global_position.z = lerp(crossheir.global_position.z,global_position.z+10.0,0.5)
 		rotation_degrees = Vector3(-180,0,0)
-	crossheir.scale = Vector3.ONE * remap(crossheir.global_position.x, 9.0, -9.0, 2.0, 1.0)
+	#crossheir.scale = Vector3.ONE * remap(crossheir.global_position.x, 9.0, -9.0, 2.0, 1.0)
 	
 		
 	
 	if Input.is_action_pressed("shoot"):
 		if current_gun:
 			current_gun.shoot()
+			ammo_label.text = str(current_gun.current_ammo) + "/" + str(current_gun.reserve_ammo)
 	
 	if Input.is_action_pressed("reload"):
 		if current_gun:
@@ -75,12 +82,10 @@ func _physics_process(delta: float) -> void:
 
 	
 func _lock_on_enemy(lane:int) -> void:
-	print(lane,Lane.lane)
 	if Lane.lane[Lane.player_lane] == []:
 		locked_enemy = null
 		return
 	var enemy = Lane.lane[Lane.player_lane][0]
-	print(enemy)
 	if !enemy:
 		locked_enemy = null
 		return

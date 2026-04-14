@@ -11,7 +11,7 @@ var sliding := false
 signal died()
 
 @onready var health: HealthComponent = $Health
-@onready var coin_handler: CoinComponent = $CoinHandler
+@onready var gun_handler: GunHandler = $GunHandler
 @onready var mesh: MeshInstance3D = $MeshInstance3D
 @onready var camera: Camera3D = $Camera3D
 @onready var camera_3d_2: Camera3D = $Camera3D2

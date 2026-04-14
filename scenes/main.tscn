@@ -178,7 +178,7 @@ text = "score: 0"
 [node name="EnemySpawner" parent="." unique_id=1498871980 instance=ExtResource("11_eb6dy")]
 enemy_scene = ExtResource("12_trceg")
 spawn_delay = 4.0
-spawn_distance_behind = 5.0
+spawn_distance_behind = 30.0
 
 [connection signal="pressed" from="deathscreen/Control/Button" to="deathscreen" method="_on_button_pressed"]
 [connection signal="died" from="Player" to="deathscreen" method="_on_player_died"]

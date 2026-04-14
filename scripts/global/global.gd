@@ -14,7 +14,6 @@ const VIEW_SIZE := 15.0
 @export var speed_base := 0.8
 @export var warning_data: Array
 @export var score := 0.0
-@export var enemy_in_lanes :Array[int] = [0,0,0]
 @export var nitro := false
 
 func reset()->void:
@@ -24,5 +23,4 @@ func reset()->void:
 	speed_base = 0.8
 	warning_data = []
 	score = 0.0
-	enemy_in_lanes = [0,0,0]
 	nitro = false

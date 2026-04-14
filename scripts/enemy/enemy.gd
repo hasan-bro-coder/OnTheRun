@@ -24,6 +24,7 @@ enum Actions {
 @export var lane_switch_delay: float = 1.5
 @onready var gun_handle: Node3D = $GunHandle
 @onready var jump_ray: RayCast3D = $RayCast3D
+@onready var shoot_bar: TextureProgressBar = $Sprite3D/SubViewport/TextureProgressBar
 
 var can_shoot: bool = true
 var current_lane: int = 0
@@ -51,16 +52,24 @@ func _physics_process(delta: float) -> void:
 	else:
 		target_z = base_target_z + 60
 	if global_position.z < target_z - 5:
-		_handle_input(Actions.LEFT,abs(global_position.z - target_z) / 1)
+		_handle_input(Actions.LEFT,40 + 0 * abs(global_position.z - target_z) / 4)
 	elif global_position.z > target_z + 5:
-		_handle_input(Actions.RIGHT,abs(global_position.z - target_z) / 1)
-		
+		_handle_input(Actions.RIGHT,40 + 0 * abs(global_position.z - target_z) / 4)
+	_gun_logic()
 	_handle_yaxis(delta)
 	_handle_slide(delta)
 	_handle_movement(delta)
 	move_and_slide()
-	gun_handle.look_at(Vector3(Global.player_pos.x, global_position.y, Global.player_pos.z))
 
+func _gun_logic() -> void:
+	var time_left := shoot_timer.time_left
+	if time_left < 1:
+		shoot_bar.value = 0
+		return
+	var total_time := shoot_timer.wait_time - 2
+	var progress := 1.0 - ((time_left - 2) / total_time)
+	shoot_bar.value = progress * 100
+	gun_handle.look_at(Vector3(Global.player_pos.x, global_position.y, Global.player_pos.z))
 
 
 func _handle_input(input: Actions,amount:int = 0) -> void:
@@ -89,9 +98,10 @@ func _handle_input(input: Actions,amount:int = 0) -> void:
 func _handle_yaxis(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= Global.GRAVITY * Global.speed * delta
+		
 	if jump_ray.is_colliding():
 		var body: Node3D = jump_ray.get_collider()
-		if body is Obstacle and body.does_damage:
+		if (body is Player) or (body is Obstacle and body.does_damage):
 			_handle_input(Actions.JUMP)
 
 func _handle_slide(delta: float) -> void:
