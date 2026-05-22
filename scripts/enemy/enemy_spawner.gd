@@ -1,6 +1,5 @@
 extends Node3D
 
-
 @export var enemy_scene: PackedScene
 @export var spawn_delay: float = 5.0
 @export var spawn_distance_behind: float = 20.0

@@ -15,7 +15,11 @@ var current_gun_index: int = 0
 @export var gun_name_label: Label
 
 var locked_enemy: Enemy
+var _is_pc = true
+
 func _ready() -> void:
+	_is_pc = !OS.has_feature("mobile")
+	
 	if not camera:
 		camera = get_viewport().get_camera_3d()
 	
@@ -39,6 +43,13 @@ func equip_gun(index: int) -> void:
 	current_gun_index = index
 	gun_name_label.text = current_gun.name
 	
+#func _unhandled_input(event) -> void:
+	#if event is InputEventMouseButton:
+		#if event.button_index == MOUSE_BUTTON_LEFT :
+			#if current_gun:
+				#current_gun.shoot()
+				#ammo_label.text = str(current_gun.current_ammo) + "/" + str(current_gun.reserve_ammo)
+
 
 func _physics_process(delta: float) -> void:
 	global_position = player.global_position 
@@ -63,8 +74,11 @@ func _physics_process(delta: float) -> void:
 	#crossheir.scale = Vector3.ONE * remap(crossheir.global_position.x, 9.0, -9.0, 2.0, 1.0)
 	
 		
-	
-	if Input.is_action_pressed("shoot"):
+	if Input.is_action_pressed("shoot_pc") and _is_pc:
+		if current_gun:
+			current_gun.shoot()
+			ammo_label.text = str(current_gun.current_ammo) + "/" + str(current_gun.reserve_ammo)
+	elif Input.is_action_pressed("shoot"):
 		if current_gun:
 			current_gun.shoot()
 			ammo_label.text = str(current_gun.current_ammo) + "/" + str(current_gun.reserve_ammo)

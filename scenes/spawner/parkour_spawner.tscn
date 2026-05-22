@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c1sptprj47pdj"]
+
+[ext_resource type="Script" uid="uid://sfyk2i7ua6rh" path="res://scripts/parkour_spawner.gd" id="1_wbtdu"]
+
+[node name="ParkourSpawner" type="Node3D" unique_id=2032875117]
+script = ExtResource("1_wbtdu")

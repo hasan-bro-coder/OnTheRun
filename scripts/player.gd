@@ -9,17 +9,21 @@ var slide_timer := 1.0
 var sliding := false
 
 signal died()
+signal jumped()
+
 
 @onready var health: HealthComponent = $Health
 @onready var gun_handler: GunHandler = $GunHandler
 @onready var mesh: MeshInstance3D = $MeshInstance3D
 @onready var camera: Camera3D = $Camera3D
 @onready var camera_3d_2: Camera3D = $Camera3D2
+@onready var nitro_handler: NitroHandler = $NitroHandler
 
 
 func _ready() -> void:
 	camera = get_viewport().get_camera_3d()
 	Global.player = self
+	print(Global.player)
 
 
 
@@ -45,6 +49,7 @@ func _handle_input(delta: float) -> void:
 	jump_buffer -= delta
 
 	if Input.is_action_just_pressed("jump"):
+		jumped.emit()
 		jump_buffer = Global.JUMP_BUFFER_TIME
 	if Input.is_action_just_pressed("slide"):
 		if not is_on_floor():
@@ -57,11 +62,8 @@ func _handle_input(delta: float) -> void:
 		Lane.player_lane = clamp(Lane.player_lane + 1, 0, 2)	
 	var dir := Input.get_axis("right","left")
 	velocity.z = lerpf(velocity.z,-30 * dir,0.5)
-	if Input.is_action_pressed("nitro"):
-		Global.nitro = true
-		Global.speed = Global.speed_base * 2
-	else:
-		Global.speed = Global.speed_base
+
+	
 	#if Input.is_action_pressed("left"):
 		##current_view = clamp(current_view - 1, -1, 1)
 	#else:
@@ -96,6 +98,16 @@ func _handle_slide(delta: float) -> void:
 		slide_timer = 1.0
 		sliding = false
 
+func hit() -> void:
+	if sliding && slide_timer > 0.5:
+		nitro_handler.add_nitro(10)
+		print("parry")
+	else:
+		health.take_damage(10)
+
+#func _handle_parry():
+	#pass
+
 func _handle_movement(delta: float) -> void:
 	global_position.x = lerp(global_position.x, Lane.LANE_SIZE * (Lane.player_lane - 1), 10 * delta)
 	#global_position.z = lerp(global_position.z, VIEW_SIZE * current_view, VIEW_SNAP_SPEED * delta)
@@ -109,6 +121,13 @@ func _handle_movement(delta: float) -> void:
 
 	if Input.is_action_pressed("wheelie"):
 		rotation_degrees.x = lerp(rotation_degrees.x, -45.0, delta * 5.0)
+
+func parkour() -> void:
+	var t := get_tree().create_tween()
+	t.tween_property(self,"rotation:y",deg_to_rad(360),0.5)
+	#t.tween_property(self,"rotation:y",0,0.5)
+	await t.finished
+	rotation_degrees.z = 0
 
 func jump() -> void:
 	velocity.y = sqrt(2.0 * Global.GRAVITY * Global.speed * Global.JUMP_HEIGHT)

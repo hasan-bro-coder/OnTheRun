@@ -5,6 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://cyhixy67aaf5x" path="res://scenes/guns/pistol.tscn" id="3_40wdo"]
 [ext_resource type="Texture2D" uid="uid://cs1gqiq0hrnh6" path="res://assets/crossheir/outer.png" id="4_tjssy"]
 
+[sub_resource type="TextMesh" id="TextMesh_tjssy"]
+text = "YOOOOOO"
+font_size = 28
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_40wdo"]
 albedo_color = Color(1, 0.01666665, 0, 1)
 
@@ -23,6 +27,10 @@ script = ExtResource("1_a3pup")
 gunScene = NodePath("GunHandle/Pistol")
 shoot_delay = 4.0
 lane_switch_delay = 6.0
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1670027867]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 1.6612134, 0)
+mesh = SubResource("TextMesh_tjssy")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=1854439869]
 target_position = Vector3(0, 0, 20)

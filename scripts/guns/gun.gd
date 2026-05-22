@@ -159,7 +159,7 @@ extends Node3D
 @export var animation_player: AnimationPlayer
 @export var audio_player: AudioStreamPlayer3D
 @export var raycast: RayCast3D
-@export var is_enemy: bool
+@export var is_enemy: bool = false
 
 
 var _can_shoot: bool = true
@@ -184,7 +184,6 @@ func shoot() -> bool:
 	
 	current_ammo -= 1
 	
-	
 	if is_hitscan:
 		_hitscan_shot(_fire_projectile())
 	else:
@@ -202,7 +201,10 @@ func shoot() -> bool:
 func _hitscan_shot(ammo_instance:Ammo) -> void:
 	if raycast.is_colliding() and ammo_instance:
 		var hit_object := raycast.get_collider()
-		if hit_object is Enemy or hit_object is Player:
+		#print(is_enemy,hit_object)
+		if hit_object is Player and is_enemy:
+			hit_object.hit()
+		if hit_object is Enemy:
 			hit_object.health.take_damage(ammo_instance.damage)
 
 func _fire_projectile() -> Ammo:
@@ -213,8 +215,10 @@ func _fire_projectile() -> Ammo:
 		get_tree().current_scene.add_child(ammo_instance)
 		ammo_instance.global_position = muzzle_node.global_position
 		ammo_instance.global_rotation = global_rotation
+		ammo_instance.is_enemy = is_enemy
 		return ammo_instance
 	return null
+
 func _play_shoot_effects() -> void:
 	if animation_player:
 		animation_player.play("shoot")

@@ -15,6 +15,7 @@ size = Vector3(0.1, 0.1, 1)
 [node name="RifleAmmo" type="Area3D" unique_id=1707976425]
 script = ExtResource("1_gx3cm")
 speed = 100.0
+lifetime = 10.0
 metadata/_custom_type_script = "uid://bdjqusw8cj7ij"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2133868184]

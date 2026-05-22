@@ -8,13 +8,14 @@ const JUMP_BUFFER_TIME := 0.15
 const VIEW_SIZE := 15.0
 
 
-@export var player:Node3D
+@export var player:Player = null
 @export var player_pos:Vector3
 @export var speed := 0.8
 @export var speed_base := 0.8
 @export var warning_data: Array
 @export var score := 0.0
 @export var nitro := false
+@export var nitro_amount := 0.0
 
 func reset()->void:
 	player = null

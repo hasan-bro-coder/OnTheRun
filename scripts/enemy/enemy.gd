@@ -62,12 +62,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _gun_logic() -> void:
+	var text: TextMesh = $MeshInstance3D2.mesh
 	var time_left := shoot_timer.time_left
-	if time_left < 1:
-		shoot_bar.value = 0
-		return
-	var total_time := shoot_timer.wait_time - 2
-	var progress := 1.0 - ((time_left - 2) / total_time)
+	text.text = str(time_left)
+	#if time_left < 2:
+		#shoot_bar.value = 0
+		#return
+	var total_time := shoot_timer.wait_time 
+	var progress := 1.0 - ((time_left) / total_time)
 	shoot_bar.value = progress * 100
 	gun_handle.look_at(Vector3(Global.player_pos.x, global_position.y, Global.player_pos.z))
 

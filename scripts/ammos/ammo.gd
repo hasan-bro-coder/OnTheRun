@@ -9,7 +9,7 @@ extends Area3D
 @export var impact_effect: PackedScene
 @export var hit_sound: AudioStream
 @export var trail_particles: GPUParticles3D
-
+@export var is_enemy: bool = false
 
 var direction: Vector3 = Vector3.BACK
 var _velocity: Vector3
@@ -21,19 +21,23 @@ func _ready() -> void:
 	_velocity = direction * speed
 	
 	await get_tree().create_timer(lifetime).timeout
-	queue_free()
+	_destroy()
+	_spawn_impact(global_position)
+	
+	
 
 func _physics_process(delta: float) -> void:
 	global_position += _velocity * delta
 
 func _on_body_entered(body: Node) -> void:
-	if body is Player:
+	if body is Player and is_enemy:
+		body.hit()
+		_destroy()
 		return
-	if body.has_method("take_damage"):
-		body.take_damage(damage)
-	
+	if body is Enemy:
+		body.health.take_damage(damage)
+		_destroy()
 	_spawn_impact(global_position)
-	_destroy()
 
 func _on_area_entered(area: Area3D) -> void:
 	var parent = area.get_parent()
