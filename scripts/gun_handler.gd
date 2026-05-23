@@ -119,10 +119,12 @@ func _update_gun_rotation(_delta:float) -> void:
 	var intersection: Variant = plane.intersects_ray(ray_origin, ray_dir)
 	if intersection:
 		var direction:Vector3 = (intersection-current_gun.global_position).normalized()
-		var angle: float = atan2(direction.z,direction.y) - PI / 2
-		crossheir.global_position.z = lerp(crossheir.global_position.z,intersection.z,0.5)
-		crossheir.global_position.y = lerp(crossheir.global_position.y,intersection.y,0.5)
-		current_gun.rotation.x = angle
+		var angle: float = rad_to_deg(atan2(direction.z,direction.y) - PI / 2)
+		if  angle < 0 and angle > -180:
+			current_gun.rotation_degrees.x = angle
+			crossheir.global_position.z = lerp(crossheir.global_position.z,intersection.z,0.5)
+			crossheir.global_position.y = lerp(crossheir.global_position.y,intersection.y,0.5)
+			print(angle)
 		#if rad_to_deg(angle) < 0 and rad_to_deg(angle) > -180:
 			#return
 		#crossheir2.global_position.y = lerp(crossheir.global_position.y,intersection.y,0.5)

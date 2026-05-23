@@ -8,11 +8,11 @@ func _ready() -> void:
 	if !nitro_bar:
 		printerr("no nitro bar")
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("nitro") and Global.nitro_amount >= 10:
+	if Input.is_action_pressed("nitro") and Global.nitro_amount >= 10:
 		Global.nitro = true
 		Global.speed = Global.speed_base * 2
-		Global.nitro_amount = 0
-		nitro_bar.value = 0
+		Global.nitro_amount -= 0.1
+		nitro_bar.value -= 0.1
 	else:
 		Global.speed = Global.speed_base
 

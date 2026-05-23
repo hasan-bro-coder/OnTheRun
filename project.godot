@@ -37,7 +37,7 @@ mouse_cursor/custom_image="uid://qb7228wr51pa"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg")
 
 [file_customization]
 

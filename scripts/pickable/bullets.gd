@@ -5,4 +5,4 @@ func _on_body_entered(body: Node3D) -> void:
 		var player:Player = body
 		player.gun_handler.current_gun.add_ammo(10)
 		hit_player.emit()
-		queue_free()
+	queue_free()
