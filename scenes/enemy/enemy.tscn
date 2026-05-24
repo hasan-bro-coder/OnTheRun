@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cn6jwyc5b6wao" path="res://scenes/component/health.tscn" id="2_40wdo"]
 [ext_resource type="PackedScene" uid="uid://cyhixy67aaf5x" path="res://scenes/guns/pistol.tscn" id="3_40wdo"]
 [ext_resource type="Texture2D" uid="uid://cs1gqiq0hrnh6" path="res://assets/crossheir/outer.png" id="4_tjssy"]
+[ext_resource type="PackedScene" uid="uid://7f610n5ieinq" path="res://assets/bikes/scene.gltf" id="5_gl05p"]
 
 [sub_resource type="TextMesh" id="TextMesh_tjssy"]
 text = "YOOOOOO"
@@ -81,6 +82,10 @@ value = 100.0
 fill_mode = 4
 nine_patch_stretch = true
 texture_progress = ExtResource("4_tjssy")
+
+[node name="Sketchfab_Scene" parent="." unique_id=1067306117 instance=ExtResource("5_gl05p")]
+transform = Transform3D(0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0, 0)
+visible = false
 
 [connection signal="died" from="Health" to="." method="_on_health_died"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

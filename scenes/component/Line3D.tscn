@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d1medojrggsyn"]
+
+[ext_resource type="Script" uid="uid://cbsrlnis815do" path="res://scripts/component/line_3d.gd" id="1_ix8qi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ix8qi"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0rv6b"]
+material = SubResource("StandardMaterial3D_ix8qi")
+
+[node name="Line3D" type="MeshInstance3D" unique_id=1204806814]
+top_level = true
+mesh = SubResource("PlaneMesh_0rv6b")
+script = ExtResource("1_ix8qi")

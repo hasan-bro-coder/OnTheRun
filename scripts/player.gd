@@ -14,6 +14,7 @@ signal jumped()
 
 @onready var health: HealthComponent = $Health
 @onready var gun_handler: GunHandler = $GunHandler
+#@onready var mesh = $Sketchfab_Scene
 @onready var mesh: MeshInstance3D = $MeshInstance3D
 @onready var camera: Camera3D = $Camera3D
 @onready var camera_3d_2: Camera3D = $Camera3D2

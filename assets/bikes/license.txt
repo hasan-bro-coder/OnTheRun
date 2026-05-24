@@ -1,0 +1,11 @@
+Model Information:
+* title:	Toon Motorbike
+* source:	https://sketchfab.com/3d-models/toon-motorbike-0e7b8d0074a949419d97cac221780ee3
+* author:	Zeppelin (https://sketchfab.com/zeppelingames)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Toon Motorbike" (https://sketchfab.com/3d-models/toon-motorbike-0e7b8d0074a949419d97cac221780ee3) by Zeppelin (https://sketchfab.com/zeppelingames) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -4,7 +4,7 @@ extends Node3D
 @export var spawn_delay: float = 5.0
 @export var spawn_distance_behind: float = 20.0
 @onready var spawn_timer: Timer = $SpawnTimer
-var can_spawn: bool = true
+@export var can_spawn: bool = true
 var enemy_count := 0
 func _ready() -> void:
 	#spawn_enemy_on_lane()

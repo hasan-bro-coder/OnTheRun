@@ -156,9 +156,6 @@ offset_bottom = 23.0
 grow_horizontal = 0
 
 [node name="MobileControls" parent="." unique_id=1915740861 instance=ExtResource("5_tbgi4")]
-min_swipe_distance = 50.0
-max_swipe_time = 0.5
-detect_in_area_only = false
 
 [node name="ScoreHandler" parent="." unique_id=2026753021 node_paths=PackedStringArray("score_label") instance=ExtResource("6_tefeu")]
 score_label = NodePath("score")

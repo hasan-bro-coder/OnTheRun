@@ -11,4 +11,5 @@ func check() -> void:
 	var arr: Array[Node3D] = $"Area3D".get_overlapping_bodies()
 	if (arr.has(Global.player)):
 		Global.player.parkour()
+		Global.player.nitro_handler.add_nitro(10)
 		queue_free()

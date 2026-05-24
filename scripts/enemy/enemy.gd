@@ -62,9 +62,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _gun_logic() -> void:
-	var text: TextMesh = $MeshInstance3D2.mesh
 	var time_left := shoot_timer.time_left
-	text.text = str(time_left)
 	#if time_left < 2:
 		#shoot_bar.value = 0
 		#return

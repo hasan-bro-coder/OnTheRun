@@ -3,19 +3,22 @@ class_name GunHandler
 
 var available_guns: Dictionary = {}
 var current_gun_index: int = 0
+var locked_enemy: Enemy
+var _is_pc := true
+
 @export var current_gun: Gun
 @export var camera: Camera3D
 @export var min_angle: float = -30.0
 @export var max_angle: float = 210.0
 @export var rotation_speed: float = 15.0
-@onready var player: Player = $".."
-@onready var crossheir: Sprite3D = $crossheir
-
 @export var ammo_label: Label
 @export var gun_name_label: Label
 
-var locked_enemy: Enemy
-var _is_pc = true
+@onready var player: Player = $".."
+@onready var crossheir: Sprite3D = $crossheir
+@onready var line: Line3D = $"../Line"
+
+
 
 func _ready() -> void:
 	_is_pc = !OS.has_feature("mobile")
@@ -60,6 +63,11 @@ func _physics_process(delta: float) -> void:
 		crossheir.global_position.x = locked_enemy.global_position.x
 		crossheir.global_position.y = locked_enemy.global_position.y
 		crossheir.global_position.z = lerp(crossheir.global_position.z,locked_enemy.global_position.z,0.5)
+		line.draw_line(
+				Global.player_pos,
+				crossheir.global_position,
+				0.11,
+		)
 		#var cam := get_viewport().get_camera_3d()
 		#var dist := global_position.distance_to(cam.global_position)
 		#var scale_factor := dist / 20.0
@@ -113,21 +121,31 @@ func _update_gun_rotation(_delta:float) -> void:
 	var mouse_pos := get_viewport().get_mouse_position()
 	var ray_origin := camera.project_ray_origin(mouse_pos)
 	var ray_dir := camera.project_ray_normal(mouse_pos)
-	
-	# Create plane on X axis (since it's a side-scroller)
 	var plane := Plane(Vector3(1, 0, 0), current_gun.global_position.x)
 	var intersection: Variant = plane.intersects_ray(ray_origin, ray_dir)
 	if intersection:
 		var direction:Vector3 = (intersection-current_gun.global_position).normalized()
 		var angle: float = rad_to_deg(atan2(direction.z,direction.y) - PI / 2)
-		if  angle < 0 and angle > -180:
+		if  angle < 20 and angle > -200:
 			current_gun.rotation_degrees.x = angle
 			crossheir.global_position.z = lerp(crossheir.global_position.z,intersection.z,0.5)
 			crossheir.global_position.y = lerp(crossheir.global_position.y,intersection.y,0.5)
-			print(angle)
-		#if rad_to_deg(angle) < 0 and rad_to_deg(angle) > -180:
-			#return
-		#crossheir2.global_position.y = lerp(crossheir.global_position.y,intersection.y,0.5)
+			line.draw_line(
+					Global.player_pos,
+					crossheir.global_position,
+					0.11,
+				)
+			#horizontal_line.draw_line(
+				#Vector3(Global.player_pos.x, 1, intersection.z),
+				#Vector3(Global.player_pos.x, intersection.y, intersection.z),
+				#Color.RED
+			#)
+			#vertical_line.draw_line(
+				#Vector3(Global.player_pos.x, 1, Global.player_pos.z),
+				#Vector3(Global.player_pos.x, 1, intersection.z),
+				#Color.GREEN
+			#)
+			
 
 func _look_at_smoothly(from: Vector3,to:Vector3,of:Node3D)->void:
 	var direction:Vector3 = (from - to).normalized()
